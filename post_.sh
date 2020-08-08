@@ -20,7 +20,7 @@ echo "date:   $formatted_date" >> $post_file
 echo "categories: $cats" >> $post_file
 echo "---" >> $post_file
 echo "[Edit me]" >> $post_file
-echo "<!--- Code Block -->" $post_file
+echo "<!--- Code Block -->" >> $post_file
 echo "{% highlight Java %}" >> $post_file
 echo "public String huh = \"huh?\";" >> $post_file
 echo "{% endhighlight %}" >> $post_file
