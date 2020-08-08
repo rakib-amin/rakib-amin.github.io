@@ -1,7 +1,7 @@
 // VEGAS
 // Background SLideShow
 // Codepen Demo
-// http://vegas.jatysalvat.com
+// https://vegas.jatysalvat.com
 
 
 

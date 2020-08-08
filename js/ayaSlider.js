@@ -2,8 +2,8 @@
 * ayaSlider
 * MIT Licensed
 * @author Mamod Mehyar
-* http://twitter.com/mamod
-* http://mamod.me
+* https://twitter.com/mamod
+* https://mamod.me
 * version : 1.2.4
 */
 

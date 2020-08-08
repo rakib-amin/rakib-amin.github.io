@@ -1,18 +1,18 @@
 /**
  * boxesFx.js v1.0.0
- * http://www.codrops.com
+ * https://www.codrops.com
  *
  * Licensed under the MIT license.
- * http://www.opensource.org/licenses/mit-license.php
+ * https://www.opensource.org/licenses/mit-license.php
  * 
  * Copyright 2014, Codrops
- * http://www.codrops.com
+ * https://www.codrops.com
  */
 ;( function( window ) {
 	
 	'use strict';
 
-	// based on http://responsejs.com/labs/dimensions/
+	// based on https://responsejs.com/labs/dimensions/
 	function getViewport(axis) {
 		var client, inner;
 		if( axis === 'x' ) {

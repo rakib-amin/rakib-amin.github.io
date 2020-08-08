@@ -13,7 +13,7 @@
 
     /*
         Portfolio Resize on window.load / window.resize 
-        Credits: http://shariarbd.com/demo/responsive-isotope-masonry-layout/
+        Credits: https://shariarbd.com/demo/responsive-isotope-masonry-layout/
     */
 
     $(window).on("load resize", function(e) {
@@ -272,7 +272,7 @@
     function initSubscribeForm() {
       if ($('#subscriber-form').length > 0) {
         $('#subscriber-form').ajaxChimp({
-            url: 'http://rashedamins.us12.list-manage.com/subscribe/post?u=e9210890a3bdbbd5d088c6796&id=7491b0eac2',
+            url: 'https://rashedamins.us12.list-manage.com/subscribe/post?u=e9210890a3bdbbd5d088c6796&id=7491b0eac2',
             callback: function(res) {
                 console.log('Foober');
                 var template = '<div class="modal fade" id="modal" tabindex="-1" role="dialog">';
