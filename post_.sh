@@ -34,7 +34,6 @@ mv $post_file _posts/
 $txt_editor _posts/$post_file
 
 function append_copy_to_clipboard() {
-	echo "Publishing post to Github" 
 	echo "{% if page.content contains \"pre\" %}" >> _posts/$post_file
 	echo "<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>" >> _posts/$post_file
 	echo "<script src='https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js'></script>" >> _posts/$post_file
@@ -46,6 +45,7 @@ echo "Push To Github? (Y/n)"
 read response
 if [[ "$response" == [Yy]* ]]; then 
 	append_copy_to_clipboard
+	echo "Publishing post to Github" 
 	git config user.name "Rakib Amin" && git config user.email "md.rakib.amin@gmail.com";
 	git add _posts/$post_file
 	git commit -m "Added $post_file to _posts"
