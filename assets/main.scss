@@ -8,3 +8,27 @@ a { color: grey; text-decoration: none; }
 a:visited { color: #1e1e1e; }
 
 a:hover { color: #111; text-decoration: underline; }
+
+.rss-subscribe { display: none; }
+
+.btn.clipboard { 
+	background: transparent; 
+}
+
+.clipboard { 
+	cursor: pointer;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 100%;
+    margin: 0px 0;
+    outline: 0 none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: 0;
+    border-radius: 2px;
+    background: transparent;
+    color: #111;
+}
