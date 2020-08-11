@@ -10,6 +10,7 @@ I designed a wrapper for ADB in Python. See it in Action:
 
 Code Sample: 
 <!--- Code Block -->
+For listing connected USB devices, the most widely used command for `adb`, I had to consider different path definition for different OS. 
 {% highlight Python %}
 def list_devices():
     global ADB_COMMAND
