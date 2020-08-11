@@ -18,6 +18,9 @@
             {%- if site.email -%}
             <li><a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
             {%- endif -%}
+            {%- if site.google_scholar_username -%}
+            <li><a target="_blank" class="u-email" href="https://scholar.google.com/citations?user={{ site.google_scholar_username }}">Google Scholar Citations</a></li>
+            {%- endif -%}
         </ul>
       </div>
 

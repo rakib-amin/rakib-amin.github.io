@@ -21,11 +21,12 @@
 title: Nondisturbing Thoughts
 author: Mohammad Rakib Amin
 description: >- # this means to ignore newlines until "baseurl:"
-  I am an SDET based on Singapore. 
+  I am a Senior SDET based on Singapore, specializing in Test/System Automation, CI/CD
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  rakib-amin
 linkedin_username: rakibamin
+google_scholar_username: GeoSXFwAAAAJ
 timezone: Asia/Singapore
 
 # Build settings

@@ -28,7 +28,7 @@ function append_copy_to_clipboard() {
 	echo "{% endif %}" >> $1
 }
 
-if [[ $MODE == "CREATE" ]]; then
+function create_post() {
 	echo "Enter title of post:"
 	read title
 	echo "Enter categories for this post (space separated):"
@@ -56,6 +56,10 @@ if [[ $MODE == "CREATE" ]]; then
 
 	mv $POST_FILE _posts/
 	$txt_editor _posts/$POST_FILE
+}
+
+if [[ $MODE == "CREATE" ]]; then
+	create_post
 
 elif [[ $MODE == "EDIT" ]]; then
 	ls_post=`ls _posts/`
@@ -63,20 +67,21 @@ elif [[ $MODE == "EDIT" ]]; then
 	options+=("Quit")
 
 	if [[ ${#options[@]} == 1 ]]; then
-		echo "No posts found"
-		exit
+		echo "No posts found. Create a new post? [Y/n]"
+		read response
+		[[ "$response" == [Yy]* ]] && create_post || exit 1 
+	else
+		echo "Select a post from list and hit \`return\` (select ${#options[@]} to quit):"
+		select opt in "${options[@]}"
+		do
+		    if [[ $opt == "Quit" ]]; then
+		        break
+		    fi
+		    echo "Opening: ${opt}"
+		    POST_FILE=${opt}
+		    $txt_editor _posts/${opt}
+		done
 	fi
-
-	echo "Select a post from list and hit \`return\` (select ${#options[@]} to quit):"
-	select opt in "${options[@]}"
-	do
-	    if [[ $opt == "Quit" ]]; then
-	        break
-	    fi
-	    echo "Opening: ${opt}"
-	    POST_FILE=${opt}
-	    $txt_editor _posts/${opt}
-	done
 fi
 
 if [[ -z $POST_FILE ]]; then
@@ -85,16 +90,21 @@ else
 	curr_post_location=_posts/$POST_FILE
 fi
 
-echo "Push To Github? (Y/n)"
-read response
-if [[ "$response" == [Yy]* ]]; then 
-	append_copy_to_clipboard "$curr_post_location"
-	echo "Publishing post to Github" 
-	git config user.name "Rakib Amin" && git config user.email "md.rakib.amin@gmail.com";
-	git add _posts/$POST_FILE
-	git commit -m "Added $POST_FILE to _posts"
-	git push
-else
-	append_copy_to_clipboard "$curr_post_location"
-	exit 1
+is_clean=`git status | grep "nothing to commit, working tree clean" | wc -l`
+if [[ $is_clean == 1 ]]; then
+ 	exit
+else   
+	echo "Push To Github? (Y/n)"
+	read response
+	if [[ "$response" == [Yy]* ]]; then 
+		append_copy_to_clipboard "$curr_post_location"
+		echo "Publishing post to Github" 
+		git config user.name "Rakib Amin" && git config user.email "md.rakib.amin@gmail.com";
+		git add _posts/$POST_FILE
+		git commit -m "Added $POST_FILE to _posts"
+		git push
+	else
+		append_copy_to_clipboard "$curr_post_location"
+		exit 1
+	fi
 fi
