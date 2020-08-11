@@ -1,8 +1,9 @@
 ### Site: https://rakib-amin.github.io
 ### how to:
-- Add a new post
-```bash
-bash post_.sh
+- Add/Edit a post
+```bash 
+# bash post_.sh [sublime/vim] [edit] 
+bash post_.sh sublime edit
 ```
 - Overwrite _minima_ theme:
   - Edit **html**:
