@@ -5,7 +5,7 @@ date:   2020-08-08 23:13:15 +0800
 categories: java
 ---
 This is a post demoing why we need streams.
-<!--- Code Block -->
+
 {% highlight Java %}
 package util;
 

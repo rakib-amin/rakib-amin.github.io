@@ -90,8 +90,8 @@ else
 	curr_post_location=_posts/$POST_FILE
 fi
 
-is_clean=`git status | grep "nothing to commit, working tree clean" | wc -l`
-if [[ $is_clean == 1 ]]; then
+is_clean=`git status | grep "nothing to commit, working tree clean"`
+if [[ -n $is_clean ]]; then
  	exit
 else   
 	echo "Push To Github? (Y/n)"
