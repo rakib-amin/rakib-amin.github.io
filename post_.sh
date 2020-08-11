@@ -15,6 +15,9 @@ else
 fi
 
 function append_copy_to_clipboard() {
+	if [[ -z $1 ]]; then
+		return
+	fi
 	if grep -q "<script src='https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js'></script>" "$1"; then
 	  	return
 	fi
@@ -76,8 +79,12 @@ elif [[ $MODE == "EDIT" ]]; then
 	done
 fi
 
+if [[ -z $POST_FILE ]]; then
+	curr_post_location=""
+else
+	curr_post_location=_posts/$POST_FILE
+fi
 
-curr_post_location=_posts/$POST_FILE
 echo "Push To Github? (Y/n)"
 read response
 if [[ "$response" == [Yy]* ]]; then 
