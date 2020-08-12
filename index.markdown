@@ -4,4 +4,3 @@
 
 layout: home
 ---
-<script src='{{site.baseurl}}/assets/js/main.js'></script>
