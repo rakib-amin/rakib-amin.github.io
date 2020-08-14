@@ -32,3 +32,18 @@ a:hover { color: #111; text-decoration: underline; }
     background: transparent;
     color: #111;
 }
+
+.collapsible {
+  color: white;
+  cursor: pointer;
+  border: none;
+  float: right;
+  outline: none;
+  color: #1e1e1e; text-decoration: none;
+}
+
+.content {
+  padding: 10px;
+  display: none;
+  overflow: hidden;
+}
