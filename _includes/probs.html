@@ -593,6 +593,7 @@
             </tr>
             <tr>
                 <td><a target="_blank" href="https://leetcode.com/problems/diameter-of-n-ary-tree/">1522</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1522">{% highlight Java %} /*
+/*
 // Definition for a Node.
 class Node {
     public int val;
@@ -618,26 +619,24 @@ class Node {
 class Solution {
     int dia = 0;
     public int diameter(Node root) {
-        postorder(root);
+        height(root);
         return dia;
     }
     
-    int postorder(Node root) {
+    int height(Node root) {
         if(root == null) return 0;
-        int max1 = 0; 
-        int max2 = 0;  
+        int max1 = 0; // first maximum height
+        int max2 = 0; // second maximum height  
         for(Node child : root.children) {
-            int height = postorder(child);
-            if (max1 < height) {
-                max2 = max1;
-                max1 = height;
-            } else if(height > max2) {
-                max2 = height;
+            int currHeight = height(child);
+            if (max1 < max2) {
+                max1 = Math.max(currHeight, max1);
+            } else {
+                max2 = Math.max(currHeight, max2);
             }  
         }
-    
         dia = Math.max(dia, max2 + max1);
-        return max1 + 1; // at leaf
+        return Math.max(max1 + 1, max2 + 1); // at leaf
     }
 } {% endhighlight %}</div></td>
             </tr>
