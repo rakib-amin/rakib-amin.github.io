@@ -25,16 +25,125 @@
                 <th>Need to do Problems Link</th>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/binary-tree-upside-down/">156</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="156">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/binary-tree-upside-down/">156</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="156">{% highlight Java %} /**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode upsideDownBinaryTree(TreeNode root) {
+        TreeNode curr = root;
+        TreeNode next = null, temp = null, prev = null;
+
+        while(curr != null) {
+            // go left
+            next = curr.left;
+
+            // swapping nodes now, need temp to keep the previous right child
+            curr.left = temp;
+            temp = curr.right;
+            curr.right = prev;
+
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }  
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/read-n-characters-given-read4/">157</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="157">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/read-n-characters-given-read4/">157</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="157">{% highlight Java %} /* The read4 API is defined in the parent class Reader4.
+      int read4(char[] buf); */
+
+public class Solution extends Reader4 {
+    /**
+     * @param buf Destination buffer
+     * @param n   Maximum number of characters to read
+     * @return    The number of characters read
+     */
+    public int read(char[] buf, int n) {
+        char[] buffer = new char[4];
+        boolean endOfFile = false;
+        int readBytes = 0;
+        
+        while (readBytes < n && !endOfFile) {
+            int currReadBytes = read4(buffer);
+            if (currReadBytes !=4) {
+                endOfFile = true;
+            }
+            int length = Math.min(n - readBytes, currReadBytes);
+            for (int i=0; i<length; i++) {
+                buf[readBytes + i] = buffer[i];
+            }
+            readBytes += length;
+        }
+        return readBytes;
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/">158</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="158">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/">158</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="158">{% highlight Java %} /**
+ * The read4 API is defined in the parent class Reader4.
+ *     int read4(char[] buf4); 
+ */
+
+public class Solution extends Reader4 {
+    
+    /**
+     * @param buf Destination buffer
+     * @param n   Number of characters to read
+     * @return    The number of actual characters read
+     */
+    private int buffPtr = 0;
+    private int buffCnt = 0;
+    private char[] buff = new char[4];
+    public int read(char[] buf, int n) {
+        int ptr = 0;
+        while (ptr < n) {
+            if (buffPtr == 0) {
+                buffCnt = read4(buff);
+            }
+            if (buffCnt == 0) break;
+            while (ptr < n && buffPtr < buffCnt) {
+                buf[ptr++] = buff[buffPtr++];
+            }
+            if (buffPtr >= buffCnt) buffPtr = 0;
+        }
+        return ptr;
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/">159</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="159">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/">159</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="159">{% highlight Java %} class Solution {
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+        int ans = 0; 
+        Map<Character,Integer> count = new HashMap<>();
+        int l = 0, r = 0, N = s.length();
+        while (r < N) {
+          count.put(s.charAt(r), count.getOrDefault(s.charAt(r), 0) + 1);  
+          while (count.size()>2 && r>=l) {
+            count.put(s.charAt(l), count.get(s.charAt(l)) - 1);      
+            if (count.get(s.charAt(l)) == 0) {
+                count.remove(s.charAt(l));
+            }
+            l++;
+          }  
+          ans = Math.max(ans, r-l+1);  
+          r++;
+        }
+        return ans;
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
                 <td><a target="_blank" href="https://leetcode.com/problems/one-edit-distance/">161</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="161">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
@@ -571,27 +680,254 @@
                 <td><a target="_blank" href="https://leetcode.com/problems/first-unique-number/">1429</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1429">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/check-if-a-string-is-a-valid-sequence-from-root-to-leaves-path-in-a-binary-tree/">1430</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1430">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/check-if-a-string-is-a-valid-sequence-from-root-to-leaves-path-in-a-binary-tree/">1430</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1430">{% highlight Java %} /**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isValidSequence(TreeNode root, int[] arr) {
+        return dfs(root, arr, 0);
+    }
+    
+    private boolean dfs(TreeNode n, int[] a, int depth) {
+        if (n == null) return false;
+        if (depth >= a.length) return false;
+        if (a[depth] != n.val) return false;
+        // leaf
+        if (n.left == null && n.right == null) { 
+            return depth + 1 == a.length; 
+        }
+        return dfs(n.left, a, depth + 1) || dfs(n.right, a, depth + 1); 
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/find-all-the-lonely-nodes/">1469</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1469">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/find-all-the-lonely-nodes/">1469</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1469">{% highlight Java %} 
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    List<Integer> result = new ArrayList<>();
+    public List<Integer> getLonelyNodes(TreeNode root) {
+        lonely(root);
+        return result;
+    }
+    
+    void lonely(TreeNode root) {
+        if(root == null) return;
+        if(root.left != null && root.right == null) {
+            result.add(root.left.val); 
+        }
+        if (root.right != null && root.left == null) {
+            result.add(root.right.val); 
+        } 
+        lonely(root.left);
+        lonely(root.right);
+    }
+    
+} 
+{% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/delete-n-nodes-after-m-nodes-of-a-linked-list/">1474</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1474">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/delete-n-nodes-after-m-nodes-of-a-linked-list/">1474</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1474">{% highlight Java %} 
+/**
+ Delete n nodes after m node, iterate until end  
+
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode deleteNodes(ListNode head, int m, int n) {
+        ListNode curr = head, prev = null;
+        while(curr != null) {
+            int i = m, j = n;
+            while(i-- > 0 && curr!=null) { 
+                prev = curr;
+                curr = curr.next;
+            }
+            while(j-- > 0 && curr!=null) { 
+                curr = curr.next;
+            }
+            prev.next = curr;
+        }
+        return head;
+    }
+} 
+{% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/clone-binary-tree-with-random-pointer/">1485</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1485">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/clone-binary-tree-with-random-pointer/">1485</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1485">{% highlight Java %} 
+/**
+Deep copy is a process in which the copying process occurs recursively. 
+It means first constructing a new collection object and then recursively 
+populating it with copies of the child objects found in the original. 
+In case of deep copy, a copy of object is copied in other object. 
+It means that any changes made to a copy of object do not reflect 
+in the original object. In python, this is implemented using 
+“deepcopy()” function.
+ * Definition for Node.
+ * public class Node {
+ *     int val;
+ *     Node left;
+ *     Node right;
+ *     Node random;
+ *     Node() {}
+ *     Node(int val) { this.val = val; }
+ *     Node(int val, Node left, Node right, Node random) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *         this.random = random;
+ *     }
+ * }
+ */
+
+class Solution {
+    public NodeCopy copyRandomBinaryTree(Node root) {
+        // first declare a map to save mapping between
+        // src, dst tree (to avoid cycle by "coloring")
+        Map<Node,NodeCopy> map = new HashMap<>();
+        return dfs(root, map);
+    }
+    
+    public NodeCopy dfs(Node root, Map<Node,NodeCopy> map){
+        // null check
+        if (root==null) return null;        
+        
+        // check for already colored node (to account for random)
+        if (map.containsKey(root)) return map.get(root);
+        
+        NodeCopy newNode = new NodeCopy(root.val);
+        map.put(root,newNode);
+        
+        newNode.left=dfs(root.left,map);
+        newNode.right=dfs(root.right,map);
+        newNode.random=dfs(root.random,map);
+        
+        return newNode;
+        
+    }
+} 
+{% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/clone-n-ary-tree/">1490</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1490">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/clone-n-ary-tree/">1490</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1490">{% highlight Java %} 
+/*
+Deep copy is a process in which the copying process occurs recursively. 
+It means first constructing a new collection object and then recursively 
+populating it with copies of the child objects found in the original. 
+In case of deep copy, a copy of object is copied in other object. 
+It means that any changes made to a copy of object do not reflect 
+in the original object. In python, this is implemented using 
+“deepcopy()” function.
+
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> children;
+
+    
+    public Node() {
+        children = new ArrayList<Node>();
+    }
+    
+    public Node(int _val) {
+        val = _val;
+        children = new ArrayList<Node>();
+    }
+    
+    public Node(int _val,ArrayList<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+
+class Solution {
+    public Node cloneTree(Node root) {
+        if (root == null) return null;
+        Node copy = new Node(root.val);
+        for (Node child : root.children) 
+            copy.children.add(cloneTree(child));
+        return copy;
+    }
+} 
+{% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/find-root-of-n-ary-tree/">1506</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1506">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/find-root-of-n-ary-tree/">1506</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1506">{% highlight Java %} 
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> children;
+
+    
+    public Node() {
+        children = new ArrayList<Node>();
+    }
+    
+    public Node(int _val) {
+        val = _val;
+        children = new ArrayList<Node>();
+    }
+    
+    public Node(int _val,ArrayList<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+
+class Solution {
+    public Node findRoot(List<Node> tree) {
+        if(tree.size() == 0) return null;
+        int sum = 0;
+        for (Node n : tree) {
+            sum += n.val;
+            for (Node c : n.children)
+                sum -= c.val;
+        }
+        for (Node n : tree)
+            if (n.val == sum) return n;
+        return null;
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/move-sub-tree-of-n-ary-tree/">1516</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1516">{% highlight Java %} class Solution {
+                <td><a target="_blank" href="https://leetcode.com/problems/move-sub-tree-of-n-ary-tree/">1516</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1516">{% highlight Java %} 
+class Solution {
     public Node moveSubTree(Node root, Node p, Node q) {
-		// p is already a direct child of q
+	    // p is already a direct child of q
         if(q.children.contains(p)){
             return root;
         }
@@ -647,7 +983,8 @@
         }
         return false;
     }
-} {% endhighlight %}</div></td>
+} 
+{% endhighlight %}</div></td>
             </tr>
             <tr>
                 <td><a target="_blank" href="https://leetcode.com/problems/diameter-of-n-ary-tree/">1522</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1522">{% highlight Java %} /*
@@ -700,6 +1037,7 @@ class Solution {
             </tr>
             <tr>
                 <td><a target="_blank" href="https://leetcode.com/problems/find-the-index-of-the-large-integer/">1533</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1533">{% highlight Java %} /**
+                	
  * // This is ArrayReader's API interface.
  * // You should not implement it, or speculate about its implementation
  * interface ArrayReader {
