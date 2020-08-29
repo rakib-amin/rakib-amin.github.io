@@ -155,31 +155,262 @@ public class Solution extends Reader4 {
                 <td><a target="_blank" href="https://leetcode.com/problems/two-sum-iii-data-structure-design/">170</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="170">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/reverse-words-in-a-string-ii/">186</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="186">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/reverse-words-in-a-string-ii/">186</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="186">{% highlight Java %} class Solution {
+    public void reverseWords(char[] s) {
+        reverse(s, 0, s.length - 1);
+        int i = 0,start = 0;
+        while (i < s.length - 1) {
+            if(s[i] == ' ') {
+                reverse(s, start, i - 1);
+                start = i + 1;
+            }
+            i++;
+        }
+        // for the last word, no space, do manually 
+        reverse(s, start, i);
+    }
+    
+    public void reverse(char[] s, int start, int end) {
+        while (start < end) {
+            char t = s[start];
+            s[start] = s[end];
+            s[end] = t;
+            start++;
+            end--;
+        }
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/shortest-word-distance/">243</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="243">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/shortest-word-distance/">243</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="243">{% highlight Java %} class Solution {
+    public int shortestDistance(String[] words, String word1, String word2) {
+        int i = 0, start = -1, end = -1, minDist = Integer.MAX_VALUE;
+        while(i < words.length) {
+            if(words[i].equals(word1)) {
+                start = i;
+            }
+            if(words[i].equals(word2)) {
+                end = i;
+            }
+            if(start != -1 && end != -1) minDist = Math.min(minDist, Math.abs(start - end));
+            i++;
+        }
+        return minDist;
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/shortest-word-distance-ii/">244</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="244">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/shortest-word-distance-ii/">244</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="244">{% highlight Java %} class WordDistance {
+
+    public Map<String, List<Integer>> indices;
+    
+    public WordDistance(String[] words) {
+        indices = new HashMap<>();
+        for(int i = 0; i < words.length; i++) {
+            String w = words[i];
+            if(indices.containsKey(w)) {
+                indices.get(w).add(i);   
+            } else {
+                List<Integer> list = new ArrayList<Integer>();
+                list.add(i);
+                indices.put(w, list);
+            }
+        }
+    }
+    
+    public int shortest(String word1, String word2) {
+        List<Integer> is = indices.get(word1), js = indices.get(word2);
+        int ret = Integer.MAX_VALUE;
+        for(int i = 0, j = 0; i < is.size() && j < js.size();) {
+            int index1 = is.get(i), index2 = js.get(j);
+        if(index1 < index2) {
+            ret = Math.min(ret, index2 - index1);
+            i++;
+        } else {
+            ret = Math.min(ret, index1 - index2);
+            j++;
+        }
+        }
+        return ret;
+    }
+}
+
+/**
+ * Your WordDistance object will be instantiated and called as such:
+ * WordDistance obj = new WordDistance(words);
+ * int param_1 = obj.shortest(word1,word2);
+ */ {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/shortest-word-distance-iii/">245</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="245">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/shortest-word-distance-iii/">245</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="245">{% highlight Java %} class Solution {
+    public int shortestWordDistance(String[] words, String word1, String word2) {
+        int min = Integer.MAX_VALUE;
+        int p1 = -1;
+        int p2 = -1;
+        boolean same = word1.equals(word2);
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals(word1)) {
+                if (same) {  
+                    p2 = p1;  // Deal with another pointer too
+                }
+                p1 = i;
+            } else if (words[i].equals(word2)) {
+                p2 = i;
+            }
+
+            if (p1 != -1 && p2 != -1) {
+                min = Math.min(min, Math.abs(p1 - p2));
+            }            
+        }   
+        return min;
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/strobogrammatic-number/">246</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="246">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/strobogrammatic-number/">246</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="246">{% highlight Java %} class Solution {
+    public boolean isStrobogrammatic(String num) {
+    Map<Character, Character> map = new HashMap<Character, Character>();
+    map.put('6', '9');
+    map.put('9', '6');
+    map.put('0', '0');
+    map.put('1', '1');
+    map.put('8', '8');
+   
+    int l = 0, r = num.length() - 1;
+    while (l <= r) {
+        if (!map.containsKey(num.charAt(l))) return false;
+        if (map.get(num.charAt(l)) != num.charAt(r))
+            return false;
+        l++;
+        r--;
+    }
+    
+    return true;
+}
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/strobogrammatic-number-ii/">247</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="247">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/strobogrammatic-number-ii/">247</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="247">{% highlight Java %} class Solution {
+    public List<String> findStrobogrammatic(int n) {
+        List<String> cur, ans;
+        ans = new ArrayList<String>((n & 1) == 0 ? Arrays.asList("") : Arrays.asList("0", "1", "8"));
+        if (n < 2) return ans;
+        
+        for (;n > 1; n -= 2) {
+            cur = ans;
+            ans = new ArrayList<String>();
+            for (String i : cur) {
+                if (n > 3) ans.add('0' + i + '0');
+                ans.add('1' + i + '1');
+                ans.add('8' + i + '8');
+                ans.add('6' + i + '9');
+                ans.add('9' + i + '6');
+            }
+        }
+        
+        return ans;
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/strobogrammatic-number-iii/">248</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="248">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/strobogrammatic-number-iii/">248</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="248">{% highlight Java %} public class Solution {
+    private static final char[][] PAIRS = new char[][] {
+        {'0', '0'}, {'1', '1'}, {'6', '9'}, {'8', '8'}, {'9', '6'}};
+    public int strobogrammaticInRange(String low, String high) {
+        if (low == null || high == null || low.length() > high.length()
+            || (low.length() == high.length() && low.compareTo(high) > 0)) {
+            return 0;
+        }
+        int count = 0;
+        for (int len = low.length(); len <= high.length(); len++) {
+            count += dfs(low, high, new char[len], 0, len - 1);
+        }
+        return count;
+    }
+    private int dfs(String low, String high, char[] ch, int left, int right) {
+        if (left > right) {
+            String s = new String(ch);
+            if ((ch.length == low.length() && s.compareTo(low) < 0)
+                || (ch.length == high.length() && s.compareTo(high) > 0)) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+        int count = 0;
+        for (char[] p : PAIRS) {
+            ch[left] = p[0];
+            ch[right] = p[1];
+            if (ch.length != 1 && ch[0] == '0') {
+                continue; //don't start with 0
+            }
+            if (left == right && (p[0] == '6' || p[0] == '9')) {
+                continue; //don't put 6/9 at the middle of string.
+            }
+            count += dfs(low, high, ch, left + 1, right - 1);
+        }
+        return count;
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/group-shifted-strings/">249</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="249">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/group-shifted-strings/">249</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="249">{% highlight Java %} class Solution {
+    // this is a Hashing problem, use the original group / starting group
+    // (Pateint 0) as a key, and save others belonging to same original group as its 
+    // value. To reduce each group to its patient_0, we need to add a String reducer 
+    // where we can just subtract `a` from each `char` (char < 0 then char += 26 to rotate)
+    public List<List<String>> groupStrings(String[] strings) {
+        Map<String, List<String>> hm = new HashMap<>();
+        for(String s: strings){
+            String org = getOrg(s);
+            if(!hm.containsKey(org)) hm.put(org, new ArrayList<>());
+            hm.get(org).add(s);
+        }
+        List<List<String>> ans = new ArrayList<>();
+        for(String s: hm.keySet()) ans.add(hm.get(s));
+        return ans;
+    }
+    
+    // reducer function : reduces a string to it's starting group 
+    String getOrg(String s){
+        int diff = s.charAt(0)-'a';
+        StringBuilder ss = new StringBuilder();
+        for(int i = 0; i < s.length(); i++) {
+            char c = (char)(s.charAt(i)-diff);
+            if(c < 'a') c = (char)(c+26);
+            ss.append(c);
+        }
+        return ss.toString();
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/count-univalue-subtrees/">250</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="250">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/count-univalue-subtrees/">250</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="250">{% highlight Java %} public class Solution {
+    public int countUnivalSubtrees(TreeNode root) {
+        int[] count = new int[1];
+        helper(root, count);
+        return count[0];
+    }
+    
+    private boolean helper(TreeNode node, int[] count) {
+        if (node == null) {
+            return true;
+        }
+        boolean left = helper(node.left, count);
+        boolean right = helper(node.right, count);
+        if (left && right) {
+            if (node.left != null && node.val != node.left.val) {
+                return false;
+            }
+            if (node.right != null && node.val != node.right.val) {
+                return false;
+            }
+            count[0]++;
+            return true;
+        }
+        return false;
+    }
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
                 <td><a target="_blank" href="https://leetcode.com/problems/flatten-2d-vector/">251</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="251">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
