@@ -939,7 +939,41 @@ public class Solution extends Reader4 {
                 <td><a target="_blank" href="https://leetcode.com/problems/leftmost-column-with-at-least-a-one/">1428</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1428">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/first-unique-number/">1429</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1429">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/first-unique-number/">1429</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1429">{% highlight Java %} class FirstUnique {
+
+    Set<Integer> intSet = new LinkedHashSet<>();
+    Map<Integer, Boolean> isUniq = new HashMap<>();
+    
+    public FirstUnique(int[] nums) {
+        for (int num : nums) {
+            this.add(num);
+        }
+    }
+    
+    public int showFirstUnique() {
+        if(!intSet.isEmpty()) {
+            return intSet.iterator().next();
+        }
+        return -1;
+    }
+    
+    public void add(int value) {
+        if(isUniq.containsKey(value)) {
+            isUniq.put(value, false);
+            intSet.remove(value);
+        } else {
+            isUniq.put(value, true);
+            intSet.add(value);
+        }
+    }
+}
+
+/**
+ * Your FirstUnique object will be instantiated and called as such:
+ * FirstUnique obj = new FirstUnique(nums);
+ * int param_1 = obj.showFirstUnique();
+ * obj.add(value);
+ */ {% endhighlight %}</div></td>
             </tr>
             <tr>
                 <td><a target="_blank" href="https://leetcode.com/problems/check-if-a-string-is-a-valid-sequence-from-root-to-leaves-path-in-a-binary-tree/">1430</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1430">{% highlight Java %} /**
