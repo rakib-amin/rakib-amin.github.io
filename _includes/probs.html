@@ -936,7 +936,37 @@ public class Solution extends Reader4 {
                 <td><a target="_blank" href="https://leetcode.com/problems/delete-tree-nodes/">1273</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1273">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
             </tr>
             <tr>
-                <td><a target="_blank" href="https://leetcode.com/problems/leftmost-column-with-at-least-a-one/">1428</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1428">{% highlight Java %} _TBA_ {% endhighlight %}</div></td>
+                <td><a target="_blank" href="https://leetcode.com/problems/leftmost-column-with-at-least-a-one/">1428</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1428">{% highlight Java %} /**
+ * // This is the BinaryMatrix's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * interface BinaryMatrix {
+ *     public int get(int row, int col) {}
+ *     public List<Integer> dimensions {}
+ * };
+ */
+
+class Solution {
+    public int leftMostColumnWithOne(BinaryMatrix binaryMatrix) {
+      int rows = binaryMatrix.dimensions().get(0);
+    int cols = binaryMatrix.dimensions().get(1);
+
+    // Set pointers to the top-right corner.
+    int currentRow = 0;
+    int currentCol = cols - 1;
+    
+    // Repeat the search until it goes off the grid.
+    while (currentRow < rows && currentCol >= 0) {
+      if (binaryMatrix.get(currentRow, currentCol) == 0) {
+        currentRow++;
+      } else {
+        currentCol--; 
+      }
+    }
+    
+    // If we never left the last column, this is because it was all 0's.
+    return (currentCol == cols - 1) ? -1 : currentCol + 1;
+  }  
+} {% endhighlight %}</div></td>
             </tr>
             <tr>
                 <td><a target="_blank" href="https://leetcode.com/problems/first-unique-number/">1429</a> <button type="button" class="collapsible">See Solution</button><div class="content" id="1429">{% highlight Java %} class FirstUnique {
