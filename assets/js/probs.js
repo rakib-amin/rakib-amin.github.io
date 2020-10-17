@@ -17,3 +17,11 @@ for (i = 0; i < coll.length; i++) {
     }
   });
 }
+
+$(function(){
+    $("tbody").each(function(elem,index){
+      var arr = $.makeArray($("tr",this).detach());
+      arr.reverse();
+        $(this).append(arr);
+    });
+});
