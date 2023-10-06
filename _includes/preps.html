@@ -21,9 +21,10 @@
     </head>
     <body>
         <h3>Interview Prep (Leetcode)</h3>
-        <table>            
+        <table>
+                
             <tr><td><a target="_blank" href="https://leetcode.com/problems/find-unique-binary-string/">1980</a> <button type="button" class="collapsible">Explanation</button>
-                <div class="content" id="1980"> {% highlight python %}  
+                <div class="content" id="1980">{% highlight python %}  
 class Solution:
     def findDifferentBinaryString(self, nums: List[str]) -> str:
         result = ''
@@ -32,7 +33,11 @@ class Solution:
         return result
 
 '''
-Differ all the input strings (Binary representations) by 1 digit, diagonally. 
+Steps:
+- Understand the problem statement. You need to give any binary number that 
+`should be` in the array. So just make a different string
+- To do that, create a str different from all the input strings (Binary
+ representations) by 1 digit, diagonally. 
 For example:
 a) ['10', '01'] 
 10 : becomes 0
@@ -49,7 +54,46 @@ b) ["111","011","001"]
 001: 000
   ^
 Ans: 000
+- The way to code will seem diagonal: set 1 if nums[0][0] = 0, 
+then check nums[1][1], nums[2][2] etc
+- In python code, for enumerate iterators i, x: x[i] is equivalent to nums[i][i] 
 '''
+{% endhighlight %}
+</div>
+</td></tr>
+
+<tr><td><a target="_blank" href="https://leetcode.com/problems/add-strings/">415</a> <button type="button" class="collapsible">Explanation</button>
+                <div class="content" id="415">{% highlight python %}  
+class Solution:
+    def addStrings(self, num1: str, num2: str) -> str:
+        sum, carry = '', 0
+        i, j = len(num1) - 1, len(num2) - 1
+        while i >=0 or j >= 0:
+            x = ord(num1[i]) - ord('0') if i >= 0 else 0 
+            y = ord(num2[j])- ord('0') if j >= 0 else 0
+            sum += str((x+y+carry)%10)
+            carry = (x+y+carry)//10
+            j -=1
+            i -=1
+        if carry > 0:
+            sum += '1'
+        return sum[::-1]
+
+'''
+Steps:
+- right to left scan each character and add using `ord() - ord('0')` 
+- keep adding their sum's rightmost digit (%10) to `sum`, and left (should be 0 
+or 1) to carry
+- reverse the final `sum` after appending carry to it (because you were appending 
+left to right) 
+'''
+{% endhighlight %}
+</div>
+</td></tr>
+
+<tr><td><a target="_blank" href=""> </a> <button type="button" class="collapsible">Explanation</button>
+    <div class="content" id=" ">{% highlight python %}  
+
 {% endhighlight %}
 </div>
 </td></tr>
