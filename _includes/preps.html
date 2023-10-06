@@ -22,7 +22,42 @@
     <body>
         <h3>Interview Prep (Leetcode)</h3>
         <table>            
-            <tr></tr>
+            <tr><td><a target="_blank" href="https://leetcode.com/problems/find-unique-binary-string/">1980</a> <button type="button" class="collapsible">Explanation</button>
+                <div class="content" id="1980">
+{% highlight python %} 
+# code 
+class Solution:
+    def findDifferentBinaryString(self, nums: List[str]) -> str:
+        result = ''
+        for i, x in enumerate(nums):
+            result += '1' if x[i] == '0' else '0'
+        return result
+
+{% endhighlight %}
+{% highlight none %} 
+# Explanation of approach(es):
+Differ all the input strings (Binary representations) by 1 digit, diagonally. 
+For example:
+a) ['10', '01'] 
+10 : becomes 0
+^
+01 : becomes 00
+ ^
+Ans: 00
+
+b) ["111","011","001"]
+111: 0
+^
+011: 00
+ ^
+001: 000
+  ^
+Ans: 000
+
+{% endhighlight %}
+
+</div>
+</td></tr>
         </table>
     </body>
 </html>
