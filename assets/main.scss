@@ -15,6 +15,16 @@ a:hover { color: #111; text-decoration: underline; }
 	background: transparent; 
 }
 
+.tag {
+  font-size: smaller;
+  color: white;
+  display: inline;
+  padding-left: 1%;
+  border: none;
+  outline: none;
+  color: #1e1e1e; text-decoration: none;
+}
+
 .clipboard { 
 	cursor: pointer;
     display: inline-block;

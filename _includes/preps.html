@@ -23,7 +23,7 @@
         <h3>Interview Prep (Leetcode)</h3>
         <table>
                 
-            <tr><td><a target="_blank" href="https://leetcode.com/problems/find-unique-binary-string/">1980</a> <button type="button" class="collapsible">Explanation</button>
+            <tr><td><a target="_blank" href="https://leetcode.com/problems/find-unique-binary-string/">1980</a> <div class="tag">bit</div> <button type="button" class="collapsible">Explanation</button>
                 <div class="content" id="1980">{% highlight python %}  
 class Solution:
     def findDifferentBinaryString(self, nums: List[str]) -> str:
@@ -62,7 +62,7 @@ then check nums[1][1], nums[2][2] etc
 </div>
 </td></tr>
 
-<tr><td><a target="_blank" href="https://leetcode.com/problems/add-strings/">415</a> <button type="button" class="collapsible">Explanation</button>
+<tr><td><a target="_blank" href="https://leetcode.com/problems/add-strings/">415</a> <div class="tag">arithmetics</div> <button type="button" class="collapsible">Explanation</button>
                 <div class="content" id="415">{% highlight python %}  
 class Solution:
     def addStrings(self, num1: str, num2: str) -> str:
@@ -91,12 +91,75 @@ left to right)
 </div>
 </td></tr>
 
-<tr><td><a target="_blank" href=""> </a> <button type="button" class="collapsible">Explanation</button>
+<tr><td><a target="_blank" href="https://leetcode.com/problems/valid-parentheses/">20</a> <div class="tag">stack</div> <button type="button" class="collapsible">Explanation</button>
+    <div class="content" id="20">{% highlight python %}  
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        for a in s:
+            if a in '({[':
+                stack.append(a)
+            else:
+                if len(stack) == 0 or (a == ')' and stack[-1] != '(') or (a == '}' and stack[-1] != '{') or (a == ']' and stack[-1] != '['):
+                    return False
+                stack.pop()
+        return len(stack) == 0
+'''
+Steps:
+- This is a stupid problem. Only acceptable answer is "(){}[]"
+- So put all left ones in stack normally, if a right one is found, check if the 
+stack top is a left one
+
+'''
+{% endhighlight %}
+</div>
+</td></tr>
+
+<tr><td><a target="_blank" href="https://leetcode.com/problems/min-stack/">155</a> <div class="tag">stack</div> <button type="button" class="collapsible">Explanation</button>
+    <div class="content" id="155">{% highlight python %}  
+class Node:
+    def __init__(self, val: int, min: int, next):
+        self.val = val
+        self.min = min
+        self.next = next
+    
+class MinStack:
+
+    def __init__(self):
+        self.head = Node(float('inf'), float('inf'), None)    
+
+    def push(self, val: int) -> None:
+        if self.head:
+            self.head = Node(val, min(val, self.head.min), self.head)
+        else:
+            self.head = Node(val, val, None)
+
+    def pop(self) -> None:
+        self.head = self.head.next
+
+    def top(self) -> int:
+        return self.head.val
+
+    def getMin(self) -> int:
+        return self.head.min
+            
+'''
+Steps:
+- A reversed linked list is the best possible solution here. Why? 1. it's a stack 
+(normal linkedlist is a queue) 2. You can save the min as an attribute of Node
+- Remember: use `self.` for all python variables 
+'''
+{% endhighlight %}
+</div>
+</td></tr>
+
+<tr><td><a target="_blank" href=""> </a> <div class="tag"> </div> <button type="button" class="collapsible">Explanation</button>
     <div class="content" id=" ">{% highlight python %}  
 
 {% endhighlight %}
 </div>
 </td></tr>
+
         </table>
     </body>
 </html>
