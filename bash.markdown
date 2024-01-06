@@ -1,4 +1,5 @@
 <!-- keymap start -->
+```
 [aminra1@LAP-CA-AMINRA1 ~ (⎈|sign-internal-teal:sign)]$ cat key-map.sh 
 sleep 4
 xmodmap ~/.Xmodmap
@@ -9,9 +10,11 @@ keycode 37 = Alt_L Meta_L
 keycode 64 = Control_L
 add control = Control_L Control_R
 add mod1 = Alt_L Meta_L
-[aminra1@LAP-CA-AMINRA1 ~ (⎈|sign-internal-teal:sign)]$ 
+[aminra1@LAP-CA-AMINRA1 ~ (⎈|sign-internal-teal:sign)]$
+```
 <!-- keymap end -->
 <!-- bash profile start -->
+```
 gs() { echo “gs => git status”; git status; }
 ga() { echo “ga => git add ‘$*’”; git add “$*”; }
 gaa() { echo “gaa => git add -A”; git add -A; }
@@ -24,8 +27,10 @@ go() { echo “go => git checkout ‘$*’ && git branch”; git checkout “$*�
 gob() { echo “gob => git checkout -b ‘$*’ && git branch”; git checkout -b “$*” && git branch; }
 gl() { echo “gl => git log”; git log — pretty=format:’%h %ad [%an] %d%s’ — graph — date=short; }
 gm() { echo “gm => git merge ‘$*’”; git merge “$*”; }
+```
 <!-- bash profile end -->
 <!-- bashrc start -->
+```
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -169,8 +174,10 @@ export NVM_DIR="$HOME/.nvm"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+```
 <!-- bashrc end -->
 <!-- zshrc start -->
+```
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -276,5 +283,6 @@ source $ZSH/oh-my-zsh.sh
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+```
 <!-- zshrc end -->
 
