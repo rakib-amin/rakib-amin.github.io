@@ -20,147 +20,30 @@
         </style>
     </head>
     <body>
-        <h3>Interview Prep (Leetcode)</h3>
-        <table>
-                
-            <tr><td><a target="_blank" href="https://leetcode.com/problems/find-unique-binary-string/">1980</a> <div class="tag">bit</div> <button type="button" class="collapsible">Explanation</button>
-                <div class="content" id="1980">{% highlight python %}  
-class Solution:
-    def findDifferentBinaryString(self, nums: List[str]) -> str:
-        result = ''
-        for i, x in enumerate(nums):
-            result += '1' if x[i] == '0' else '0'
-        return result
-
-'''
-Steps:
-- Understand the problem statement. You need to give any binary number that 
-`should be` in the array. So just make a different string
-- To do that, create a str different from all the input strings (Binary
- representations) by 1 digit, diagonally. 
-For example:
-a) ['10', '01'] 
-10 : becomes 0
-^
-01 : becomes 00
- ^
-Ans: 00
-
-b) ["111","011","001"]
-111: 0
-^
-011: 00
- ^
-001: 000
-  ^
-Ans: 000
-- The way to code will seem diagonal: set 1 if nums[0][0] = 0, 
-then check nums[1][1], nums[2][2] etc
-- In python code, for enumerate iterators i, x: x[i] is equivalent to nums[i][i] 
-'''
-{% endhighlight %}
-</div>
-</td></tr>
-
-<tr><td><a target="_blank" href="https://leetcode.com/problems/add-strings/">415</a> <div class="tag">arithmetics</div> <button type="button" class="collapsible">Explanation</button>
-                <div class="content" id="415">{% highlight python %}  
-class Solution:
-    def addStrings(self, num1: str, num2: str) -> str:
-        sum, carry = '', 0
-        i, j = len(num1) - 1, len(num2) - 1
-        while i >=0 or j >= 0:
-            x = ord(num1[i]) - ord('0') if i >= 0 else 0 
-            y = ord(num2[j])- ord('0') if j >= 0 else 0
-            sum += str((x+y+carry)%10)
-            carry = (x+y+carry)//10
-            j -=1
-            i -=1
-        if carry > 0:
-            sum += '1'
-        return sum[::-1]
-
-'''
-Steps:
-- right to left scan each character and add using `ord() - ord('0')` 
-- keep adding their sum's rightmost digit (%10) to `sum`, and left (should be 0 
-or 1) to carry
-- reverse the final `sum` after appending carry to it (because you were appending 
-left to right) 
-'''
-{% endhighlight %}
-</div>
-</td></tr>
-
-<tr><td><a target="_blank" href="https://leetcode.com/problems/valid-parentheses/">20</a> <div class="tag">stack</div> <button type="button" class="collapsible">Explanation</button>
-    <div class="content" id="20">{% highlight python %}  
-class Solution:
-    def isValid(self, s: str) -> bool:
-        stack = []
-        for a in s:
-            if a in '({[':
-                stack.append(a)
-            else:
-                if len(stack) == 0 or (a == ')' and stack[-1] != '(') or (a == '}' and stack[-1] != '{') or (a == ']' and stack[-1] != '['):
-                    return False
-                stack.pop()
-        return len(stack) == 0
-'''
-Steps:
-- This is a stupid problem. Only acceptable answer is "(){}[]"
-- So put all left ones in stack normally, if a right one is found, check if the 
-stack top is a left one
-
-'''
-{% endhighlight %}
-</div>
-</td></tr>
-
-<tr><td><a target="_blank" href="https://leetcode.com/problems/min-stack/">155</a> <div class="tag">stack</div> <button type="button" class="collapsible">Explanation</button>
-    <div class="content" id="155">{% highlight python %}  
-class Node:
-    def __init__(self, val: int, min: int, next):
-        self.val = val
-        self.min = min
-        self.next = next
-    
-class MinStack:
-
-    def __init__(self):
-        self.head = Node(float('inf'), float('inf'), None)    
-
-    def push(self, val: int) -> None:
-        if self.head:
-            self.head = Node(val, min(val, self.head.min), self.head)
-        else:
-            self.head = Node(val, val, None)
-
-    def pop(self) -> None:
-        self.head = self.head.next
-
-    def top(self) -> int:
-        return self.head.val
-
-    def getMin(self) -> int:
-        return self.head.min
-            
-'''
-Steps:
-- A reversed linked list is the best possible solution here. Why? 1. it's a stack 
-(normal linkedlist is a queue) 2. You can save the min as an attribute of Node
-- Remember: use `self.` for all python variables 
-'''
-{% endhighlight %}
-</div>
-</td></tr>
-
-<tr><td><a target="_blank" href=""> </a> <div class="tag"> </div> <button type="button" class="collapsible">Explanation</button>
-    <div class="content" id=" ">{% highlight python %}  
-
-{% endhighlight %}
-</div>
-</td></tr>
-
-        </table>
+        <h3>Interview Prep (Leetcode Top 150)</h3>
+        <table>            
+            <tr>
+                <td><img src="assets/images/merged-sorted-array.png" alt="Merge Sorted Array"/>
+                    <button type="button" class="collapsible">Solution</button><div class="content" id="156">{% highlight python %} 
+                class Solution:
+                    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+                        """
+                        Do not return anything, modify nums1 in-place instead.
+                        """
+                        i = m - 1
+                        j = n - 1
+                        k = m + n - 1
+                        
+                        while j >= 0:
+                            if i >= 0 and nums1[i] > nums2[j]:
+                                nums1[k] = nums1[i]
+                                i -= 1
+                            else:
+                                nums1[k] = nums2[j]
+                                j -= 1
+                            k -= 1
+ {% endhighlight %}</div></td>
+            </tr>
     </body>
 </html>
             
