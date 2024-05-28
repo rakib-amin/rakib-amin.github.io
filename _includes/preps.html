@@ -24,7 +24,7 @@
         <table>            
             <tr>
                 <td><img src="assets/images/merged-sorted-array.png" alt="Merge Sorted Array"/></td>
-                   <td><br><button type="button" class="collapsible">Solution</button><div class="content" id="156">{% highlight python %} 
+                   <td><br><button type="button" class="collapsible">Click to Open Solution</button><div class="content" id="156">{% highlight python %} 
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         """
@@ -44,6 +44,167 @@ class Solution:
             k -= 1
  {% endhighlight %}</div></td>
             </tr>
+            <tr>
+                <td><img src="assets/images/remove-element.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Click to Open Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        k = 0
+        for i in range(len(nums)):
+            if nums[i] != val:
+                nums[k] = nums[i]
+                k += 1
+        return k
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/remove-duplicates-sorted.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Click to Open Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        k = len(nums) - 1
+        for i in nums[::-1]:
+            if i == nums[k - 1] and k > 0:
+                nums.pop(k)
+            k -= 1
+        return len(nums)
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/majority-element.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Click to Open Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        count = 0
+        result = 0
+        for i in nums:
+            if count == 0:
+                result = i
+            if i == result:
+                count += 1
+            else:
+                count -= 1
+
+        return result
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/palindrome.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Click to Open Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0 or (x % 10 == 0 and x != 0): 
+            return False
+        
+        original = x
+        reverted = 0
+        while x != 0:
+            reverted = reverted * 10 + x % 10
+            x //= 10
+
+        return original == reverted
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/plus-one.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Click to Open Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        i = len(digits) - 1
+        while i >= 0:
+            if digits[i] == 9:
+                digits[i] = 0
+                i -= 1
+            else:
+                digits[i] += 1
+                return digits
+                
+        return [1] + digits
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/fact-trail-zero.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Click to Open Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def trailingZeroes(self, n: int) -> int:
+        return n // 5 + self.trailingZeroes(n // 5) if n else 0
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/sqrt.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Click to Open Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        if x < 2: 
+            return x
+        lo, hi = 2, x // 2
+        while lo <= hi:
+            mid = lo + (hi - lo) // 2
+            sqr_mid = mid*mid
+            if sqr_mid < x:
+                lo = mid + 1
+            elif sqr_mid > x:
+                hi = mid - 1
+            else: 
+                return mid
+        return hi
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/powxn.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Click to Open Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def binaryExp(self, x: float, n: int) -> float:
+        if n == 0:
+            return 1
+
+        if n < 0:
+            n = -1 * n
+            x = 1.0 / x
+
+        result = 1
+        while n != 0:
+            # x ^ (n+1) = x^n * x
+            if n % 2 == 1:
+                result *= x
+                n -= 1
+            # x^n = (x^2)^(n/2)
+            x *= x
+            n //= 2
+        return result
+
+    def myPow(self, x: float, n: int) -> float:
+        return self.binaryExp(x, n)
+                        
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/pointline.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Click to Open Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        if len(points) <= 2:
+            return len(points)
+
+        def find_slope(p1, p2):
+            x1, y1 = p1
+            x2, y2 = p2
+            if x1 - x2 == 0:
+                return inf
+            return (y1 - y2) / (x1 - x2)
+
+        ans = 1
+        for i, p1 in enumerate(points):
+            slopes = defaultdict(int)
+            for j, p2 in enumerate(points[i + 1:]):
+                slope = find_slope(p1, p2)
+                slopes[slope] += 1
+                ans = max(slopes[slope] + 1, ans)
+        return ans
+                
+ {% endhighlight %}</div></td>
+            </tr>
+
             </table>
     </body>
 </html>
