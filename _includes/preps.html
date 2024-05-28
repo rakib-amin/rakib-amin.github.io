@@ -30,6 +30,10 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
+        # To attempt this problem, first think of traversing from the end
+        # then it is easy to realise we only need to pick the larger of the two choices (i,j)
+        # and put it at current position(k). if we pick i, decrement i, otherwise we picked j so 
+        # decrement j. That's it!
         i = m - 1
         j = n - 1
         k = m + n - 1
@@ -49,6 +53,10 @@ class Solution:
                    <td><br><button type="button" class="collapsible">Solution</button><div class="content" id="156">{% highlight python %} 
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
+        # in place removal requires shifting. Or just skipping!
+        # keep a hare (i) and a tortoise (k) and instead of checking 
+        # if nums[i] == val, check the opposite, or nums[i] != val, then  
+        # set nums[tortoise] = nums[hare]. It will skip when nums[hare] == val
         k = 0
         for i in range(len(nums)):
             if nums[i] != val:
@@ -62,6 +70,10 @@ class Solution:
                    <td><br><button type="button" class="collapsible">Solution</button><div class="content" id="156">{% highlight python %} 
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
+        # Same hare and tortoise routine!            
+        # check from the end, check each element
+        # if previous value is same as current value
+        # pop the current value     
         k = len(nums) - 1
         for i in nums[::-1]:
             if i == nums[k - 1] and k > 0:
@@ -75,6 +87,12 @@ class Solution:
                    <td><br><button type="button" class="collapsible">Solution</button><div class="content" id="156">{% highlight python %} 
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
+        # This problem can be solved using hashmap and a counter
+        # but O(1) space? The majority element can be appearing at 
+        # least 2 times, so we can keep a counter and ++ / -- it
+        # upon seeing it again. If majority element occures even times (>=2),
+        # we save it in result = i, if odd times (>=3), we don't update as it 
+        # will have been updated during 2nd occurance    
         count = 0
         result = 0
         for i in nums:
@@ -201,6 +219,104 @@ class Solution:
                 slopes[slope] += 1
                 ans = max(slopes[slope] + 1, ans)
         return ans
+                
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/addbin.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        x, y = int(a, 2), int(b, 2)
+        while y:
+            answer = x ^ y
+            carry = (x & y) << 1
+            x, y = answer, carry
+        # to remove '0b' from answer, use [2:]    
+        return bin(x)[2:]
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/reversebit.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def reverseBits(self, n: int) -> int:
+        ret, power = 0, 31
+        while n:
+            ret += (n & 1) << power
+            n = n >> 1
+            power -= 1
+        return ret
+                
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/1bits.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        c = 0
+        while n:
+            c += (n&1)
+            n >>= 1
+        return c
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/singlenum.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        a = 0
+        for i in nums:
+            a = a ^ i
+        return a
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/singlenumll.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        # bit masking is about setting, clearing and toggling bits
+        # so don't get lost in problem. you are setting bits / making numbers
+        a, b = 0, 0
+        mask = 0
+        for i in nums:
+            # if a(current) == i(current), we saw it twice; once in i another in a
+            # we keep common bits using &
+            # we store bits using |
+            b |= a & i
+            # if a(previous) == i(current) and vice versa, we toggle a accordingly
+            # we toggle using ^
+            a ^= i
+            # if an element appears three times, we will find it in b (twice) 
+            # and a (third time) both. So in case something appears three times, we
+            # remove it both from a and b
+            mask = (a & b)
+            a &= ~mask
+            b &= ~mask
+        # a holds only the number (bits) which was not repeated three times
+        return a
+                
+ {% endhighlight %}</div></td>
+            </tr>
+            <tr>
+                <td><img src="assets/images/bitwiseand.png" alt=""/></td>
+                   <td><br><button type="button" class="collapsible">Solution</button><div class="content" id="156">{% highlight python %} 
+class Solution:
+    def rangeBitwiseAnd(self, left: int, right: int) -> int:
+        # the trick of this problem is understanding common prefix
+        # a common prefix is needed because of how & resets a bit if any operand 
+        #  is a zero bit. So we can shift right until we hit 1s for both as long as 
+        #  left < right, and as we keep shifting right, we keep count. Finally we 
+        #  left shift 'left'/'right' to produce the actual prefix  
+        count = 0
+        while left < right:
+            left >>= 1
+            right >>= 1
+            count += 1
+        return right << count
                 
  {% endhighlight %}</div></td>
             </tr>
